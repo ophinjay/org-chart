@@ -1,0 +1,76 @@
+<html>
+	<head>
+		<script type="text/javascript" src="OrgChart.js"></script>
+		<script type="text/javascript">
+			var tree;
+			function init() {
+				var treeContainer = document.getElementById("treeContainer");
+				tree = new vg.visualization.OrgChart({
+					"container" : treeContainer,
+					"options" : {
+						"highlightSubtree" : true,
+						"allowCollapse" : true,
+						"selectable" : true,
+						"showHoverColors" : true,
+						"editable" : true
+					}
+				});
+				tree.setData([
+					["a", "a"],
+					["b", "a"],
+					["c", "a"],
+					["d", "a"],
+					["e", "b"],
+					["f", "c"],
+					["g", "c"],
+					["h", "d"],
+					["i", "h"],
+					["j", "f"],
+					["k", "j"],
+					["l", "j"],
+					["m", "j"],
+					["n", "b"],
+					["x", 'i'],
+					["y", "i"],
+					["v", "h"],
+					["s", "g"],
+					["t", "g"],
+					["1", "n"],
+					["2", "n"],
+					["3", "n", "tooltip for 3"]
+				]);
+				tree.draw();
+				//"node-select", "node-collapse", "node-dbclick", "node-hover"
+				tree.setEventListener("node-select", selectHandler);
+				tree.setEventListener("node-collapse", collapseHandler);
+				tree.setEventListener("node-dbclick", dbclickHandler);
+				tree.setEventListener("node-hover", hoverHandler);
+			}
+
+			function selectHandler(eventObject) {
+				console.log("Selected : " + eventObject["nodeObject"].name);
+			}
+
+			function collapseHandler(eventObject) {
+				console.log("Collpased : " + eventObject["nodeObject"].name + ", isCollapsed : " + eventObject["isCollapsed"]);
+			}			
+
+			function dbclickHandler(eventObject) {
+				console.log("Double clicked : " + eventObject["nodeObject"].name);
+			}
+
+			function hoverHandler(eventObject) {
+				console.log("Hovered : " + eventObject["nodeObject"].name);
+			}
+
+			function getData() {
+				var data = tree.getData();
+				debugger;
+			}
+		</script>
+	</head>
+	<body onload="init();">
+		<div id="treeContainer"/>
+		<button id="test" onclick="getData();">Get Data</button>
+	</body>
+</html>
