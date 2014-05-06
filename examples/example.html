@@ -24,7 +24,7 @@
 					["Level 2 Node 3", "Level 1 Node 1"],
 					["Level 2 Node 4", "Level 1 Node 2"],
 					["Level 3 Node 1", "Level 2 Node 4"],
-					["Level 3 Node 2", "Level 2 Node 4"]
+					["Level 3 Node 2", "Level 2 Node 4", "", "test"]
 				]);
 				tree.draw();
 				tree.setEventListener("node-select", selectHandler);
@@ -38,10 +38,12 @@
 			}
 
 			function collapseHandler(eventObject) {
+				debugger;
 				console.log("Collpased : " + eventObject["nodeObject"].name + ", isCollapsed : " + eventObject["isCollapsed"]);
 			}			
 
 			function dbclickHandler(eventObject) {
+				debugger;
 				console.log("Double clicked : " + eventObject["nodeObject"].name);
 			}
 

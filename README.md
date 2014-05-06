@@ -37,6 +37,8 @@ The behavior of the chart can be configured during creation by providing an addi
 * `showHoverColors` - Whenever the mouse hovers over a node, the color of that node will change if this option is enabled.
 * `editable` - If enabled, the user will be able to drag a node and drop it under another one i.e. the tree can be edited by enabling this option.
 
+> If only a static chart is required with no interactions, the options object can be avoided completely.
+
 ## Setting data
 Node data to be displayed by the chart can be input by invoking the `setData()` library method. The function expects a 2-D array with data in the following format
 
@@ -74,5 +76,35 @@ Eg.
 After the data has been set, the chart can be rendered by invoking the `draw()` method
 
 	tree.draw();
-=======
->>>>>>> 7a67d97ae408766379c63a74d4e0a98bd26d544c
+
+## Events
+Events can be registered on the tree with the `setEventListener()` library method.
+
+	tree.setEventListener(<event name>, eventHandlerFunction);
+
+Events supported by the library are listed below
+
+* `node-select` event is triggered when the user selects a node by clicking it.
+* `node-dbclick` event is triggered when the user double clicks on a node.
+* `node-hover` event is triggered when the mouse hovers above a node.
+* `node-collapse` event is triggered when a node is collapsed or a collapsed node is expanded. This event will be triggered only if the `allowCollapse` option is enabled.
+
+All events will call the attached handler function with an event object with the following properties
+
+* `htmlEventObject` - The actual event object thrown by the browser for that event. This will be an object of the native type `MouseEvent` for all cases. 
+* `nodeObject` - An object representing the node on which the event has occurred. `nodeObject` has the following useful properties
+	* `data` - If any data object was set for this node while setting the data, that object can be retrieved from this property.
+	* `childNodes` - Array of `nodeObject` representing the child nodes of the current node.
+	* `name` - Name of the node
+	* `parentNode` - `nodeObject` representing the parent of the node
+	* `tooltip` - Tool tip(if any) set for the node
+	* `isLeafNode` - `true` if the node is a leaf node
+	* `isRootNode` - `true` if the node is the root node
+	* `nodeDepth` - Depth of the node in the tree
+* `isCollapsed` - This property will be set only for the `node-collapse` event. It will hold the value `true` if the node is collapsed.
+
+## Utility methods
+*	`getData()` - To get the current data of the chart. If the chart has been edited, the data returned by this method could be different from the data that was initially set depending on the changes made in the view. If it is a non-editable chart, the data returned by this method will be same as the data that was initially set before drawing the chart. 
+*	`setVisibility(isVisible)` - To hide the chart, pass isVisible as `false`
+*	`setPosition(left, top)` - Set the position of the chart on the page.
+*	`getSubTree(nodeObject, inputObj)` - This method can be used to create a new chart using a `nodeObject` from an existing chart as the root node. The `inputObj` should be similar the object passed to the `OrgChart` constructor with at least the `container` property configured. The node represented by the `nodeObject` and its child nodes will be retrieved and a new chart will be drawn under the container mentioned in the `inputObj`. This method returns an `OrgChart` object corresponding to the new tree that was generated. 
