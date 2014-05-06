@@ -48,7 +48,6 @@ Node data to be displayed by the chart can be input by invoking the `setData()` 
 	]
 
 * `<node name>` - Name of the node. The string passed here will be displayed as the name of the node in that chart.
-<<<<<<< HEAD
 * `<parent node name>` - Name of the parent node. The parent node should have a valid node definition in the array.
 * `<tooltip text>` - Optional text to be displayed as tool tip on mouse hover over the node.
 * `<data object>` - Optional data object to be related with a node. If events are registered on nodes, the data object will be passed along with other details in the event object.
