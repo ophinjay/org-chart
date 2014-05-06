@@ -468,7 +468,7 @@ vg.visualization.OrgChart = (function() {
 			this.container = inputObj["container"];
 			if(this.container) {
 				this["options"]["selectable"] && (this.container.onmouseup = vg.utilities.Events.bindHandler(mouseUpHandler, this));
-				this["options"]["editable"] && (this.container.onmousemove = vg.utilities.Events.bindHandler(mouseMoveHander, this));
+				this["options"]["editable"] && (this.container.onmousemove = vg.utilities.Events.bindHandler(mouseMoveHandler, this));
 			}			
 		}
 		this.currentLeafNodeIndex = 0;
@@ -481,7 +481,7 @@ vg.visualization.OrgChart = (function() {
 		this.events = {};
 	};
 
-	var mouseMoveHander = function(eventObject) {
+	var mouseMoveHandler = function(eventObject) {
 		var subTree = this["currentDragged"];
 		if(this.currentClickedNode && this.currentClickedNode != this.rootNode && !subTree) {
 			subTree = this["currentDragged"] = this.getSubTree(this.currentClickedNode, {
