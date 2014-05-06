@@ -16,31 +16,17 @@
 					}
 				});
 				tree.setData([
-					["a", "a"],
-					["b", "a"],
-					["c", "a"],
-					["d", "a"],
-					["e", "b"],
-					["f", "c"],
-					["g", "c"],
-					["h", "d"],
-					["i", "h"],
-					["j", "f"],
-					["k", "j"],
-					["l", "j"],
-					["m", "j"],
-					["n", "b"],
-					["x", 'i'],
-					["y", "i"],
-					["v", "h"],
-					["s", "g"],
-					["t", "g"],
-					["1", "n"],
-					["2", "n"],
-					["3", "n", "tooltip for 3"]
+					["Root Node", "Root Node", "This is the root node"],
+					["Level 1 Node 1", "Root Node"],
+					["Level 1 Node 2", "Root Node"],
+					["Level 2 Node 1", "Level 1 Node 1"],
+					["Level 2 Node 2", "Level 1 Node 1"],
+					["Level 2 Node 3", "Level 1 Node 1"],
+					["Level 2 Node 4", "Level 1 Node 2"],
+					["Level 3 Node 1", "Level 2 Node 4"],
+					["Level 3 Node 2", "Level 2 Node 4"]
 				]);
 				tree.draw();
-				//"node-select", "node-collapse", "node-dbclick", "node-hover"
 				tree.setEventListener("node-select", selectHandler);
 				tree.setEventListener("node-collapse", collapseHandler);
 				tree.setEventListener("node-dbclick", dbclickHandler);
