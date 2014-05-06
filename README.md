@@ -8,7 +8,7 @@ Orgchart.js is a JavaScript library for generating organization charts in HTML P
 * Option to highlight the subtree of a node
 * Option to edit the tree by dragging nodes and dropping them under another node
 
-![](../examples/Chart.PNG)
+![](/examples/Chart.PNG)
 
 ## OrgChart object
 Create an object of type `vg.vizualization.OrgChart`. The constructor expects a JSON object as its input with the mandatory property `container` which should hold a reference to the DOM element under which the chart is to be generated.
