@@ -1,17 +1,17 @@
-if (!window["vg"]) {
-    window["vg"] = {};
+if (!window["oj"]) {
+    window["oj"] = {};
 }
 
-if (!vg.visualization) {
-    vg.visualization = {};
+if (!oj.visualization) {
+    oj.visualization = {};
 }
 
-if (!vg.utilities) {
-    vg.utilities = {};
+if (!oj.utilities) {
+    oj.utilities = {};
 }
 
 //Events class
-vg.utilities.Events = function(eventTypesArr) {
+oj.utilities.Events = function(eventTypesArr) {
     this.eventTypes = {};
     this.events = {};
     for (var i = 0; i < eventTypesArr.length; i++) {
@@ -20,7 +20,7 @@ vg.utilities.Events = function(eventTypesArr) {
 };
 
 //Static functions
-vg.utilities.Events.bindHandler = function(functionObj, thisObj, args) {
+oj.utilities.Events.bindHandler = function(functionObj, thisObj, args) {
     args = args || [];
     return function(eventObject) {
         eventObject = eventObject || window.event;
@@ -30,7 +30,7 @@ vg.utilities.Events.bindHandler = function(functionObj, thisObj, args) {
 };
 
 //Public functions
-vg.utilities.Events.prototype = (function() {
+oj.utilities.Events.prototype = (function() {
     var setEventListener = function(eventType, handler) {
         if (this.eventTypes[eventType]) {
             this.events[eventType] = handler;
@@ -53,7 +53,7 @@ vg.utilities.Events.prototype = (function() {
     };
 })();
 
-vg.visualization.OrgChart = (function() {
+oj.visualization.OrgChart = (function() {
     var nodePositions = {
         "LEFTMOST": "0",
         "BETWEEN": "1",
@@ -71,7 +71,7 @@ vg.visualization.OrgChart = (function() {
     var classes = {
         "node": "node",
         "childStub": "left",
-        "chart": "vg-orgchart",
+        "chart": "oj-orgchart",
         "node-select": "selected",
         "node-hover": "hover",
         "visiblity": "hidden",
@@ -128,7 +128,7 @@ vg.visualization.OrgChart = (function() {
         this.isClicked = false;
     };
 
-    Node.prototype = new vg.utilities.Events(["node-click", "node-dbclick", "node-hover"]);
+    Node.prototype = new oj.utilities.Events(["node-click", "node-dbclick", "node-hover"]);
 
     (function(prototypeObject) {
         var setParentNode = function(parentNodeObj) {
@@ -271,11 +271,11 @@ vg.visualization.OrgChart = (function() {
                     var element = this.htmlContent[i][j] = createNode("td", properties);
                     if (i == 1 && j == 1) {
                         element.innerHTML = this.name;
-                        element.onclick = vg.utilities.Events.bindHandler(nodeClickHandler, this);
-                        element.ondblclick = vg.utilities.Events.bindHandler(nodeDblClickHandler, this);
-                        element.onmouseover = vg.utilities.Events.bindHandler(mouseOverHandler, this);
-                        element.onmouseout = vg.utilities.Events.bindHandler(mouseOutHandler, this);
-                        this.orgChart["options"]["selectable"] && (element.onmousedown = vg.utilities.Events.bindHandler(mouseDownHandler, this));
+                        element.onclick = oj.utilities.Events.bindHandler(nodeClickHandler, this);
+                        element.ondblclick = oj.utilities.Events.bindHandler(nodeDblClickHandler, this);
+                        element.onmouseover = oj.utilities.Events.bindHandler(mouseOverHandler, this);
+                        element.onmouseout = oj.utilities.Events.bindHandler(mouseOutHandler, this);
+                        this.orgChart["options"]["selectable"] && (element.onmousedown = oj.utilities.Events.bindHandler(mouseDownHandler, this));
                         this.orgChart["options"]["editable"] && setDragEvents(element, this);
                         element.nodeObject = this;
                     }
@@ -285,8 +285,8 @@ vg.visualization.OrgChart = (function() {
         };
 
         var setDragEvents = function(elmt, nodeObject) {
-            elmt.addEventListener('dragstart', vg.utilities.Events.bindHandler(handleDragStart, nodeObject), false);
-            elmt.addEventListener('mouseup', vg.utilities.Events.bindHandler(handleNodeMouseUp, nodeObject), false);
+            elmt.addEventListener('dragstart', oj.utilities.Events.bindHandler(handleDragStart, nodeObject), false);
+            elmt.addEventListener('mouseup', oj.utilities.Events.bindHandler(handleNodeMouseUp, nodeObject), false);
         };
 
         var handleDragStart = function(eventObject) {
@@ -469,8 +469,8 @@ vg.visualization.OrgChart = (function() {
             }
             this.container = inputObj["container"];
             if (this.container) {
-                this["options"]["selectable"] && (this.container.onmouseup = vg.utilities.Events.bindHandler(mouseUpHandler, this));
-                this["options"]["editable"] && (this.container.onmousemove = vg.utilities.Events.bindHandler(mouseMoveHandler, this));
+                this["options"]["selectable"] && (this.container.onmouseup = oj.utilities.Events.bindHandler(mouseUpHandler, this));
+                this["options"]["editable"] && (this.container.onmousemove = oj.utilities.Events.bindHandler(mouseMoveHandler, this));
             }
         }
         this.currentLeafNodeIndex = 0;
@@ -540,7 +540,7 @@ vg.visualization.OrgChart = (function() {
                 "cellspacing": "0"
             },
             "eventHandlers": {
-                "click": vg.utilities.Events.bindHandler(tableClickHandler, chartObj)
+                "click": oj.utilities.Events.bindHandler(tableClickHandler, chartObj)
             }
         });
         var tbody = createNode("tbody", {
@@ -642,9 +642,9 @@ vg.visualization.OrgChart = (function() {
      * Internal Event handlers
      */
     var setNodeEvents = function(node, chartObj) {
-        node.setEventListener("node-click", vg.utilities.Events.bindHandler(nodeSelectHandler, chartObj));
-        node.setEventListener("node-dbclick", vg.utilities.Events.bindHandler(nodeDblClickHandler, chartObj));
-        node.setEventListener("node-hover", vg.utilities.Events.bindHandler(nodeHoverHandler, chartObj));
+        node.setEventListener("node-click", oj.utilities.Events.bindHandler(nodeSelectHandler, chartObj));
+        node.setEventListener("node-dbclick", oj.utilities.Events.bindHandler(nodeDblClickHandler, chartObj));
+        node.setEventListener("node-hover", oj.utilities.Events.bindHandler(nodeHoverHandler, chartObj));
     };
 
     var nodeSelectHandler = function(eventObject) {
@@ -668,7 +668,7 @@ vg.visualization.OrgChart = (function() {
         return orgChart.table.rows[0].cells[0].offsetWidth;
     };
 
-    orgchart.prototype = new vg.utilities.Events(["node-select", "node-collapse", "node-dbclick", "node-hover"]);
+    orgchart.prototype = new oj.utilities.Events(["node-select", "node-collapse", "node-dbclick", "node-hover"]);
 
     (function(prototypeObject) {
         var setData = function(data) {
@@ -757,10 +757,10 @@ vg.visualization.OrgChart = (function() {
     })(orgchart.prototype);
 
     (function init() {
-        var cssText = ".vg-orgchart.dragged{opacity:.4}.vg-orgchart td{font-size:15px;font-weight:bold;text-align:center;width:20px;-webkit-user-select:none;-moz-user-select:none;height:10px}.node{border:3px solid #1F497D;background:#0070C0;{borderRadius};color:white;height:60px!important}.top{border-top:2px solid #1F497D}.left{border-left:2px solid #1F497D}.collapsed{border-color:#76923C}.node.collapsed{background:#9BBB59}.selected{border-color:#E36C0A}.node.selected{background:#F79646}.hover,.clicked{border-color:#F79646}.node.hover{background:#FABF8F;cursor:pointer}.node.clicked{background:#F79646}.hidden{visibility:hidden;border-color:white}.dragged{border-color:#8064A2}.node.dragged{background:#B2A1C7;cursor:pointer}";
+        var cssText = ".oj-orgchart.dragged{opacity:.4}.oj-orgchart td{font-size:15px;font-weight:bold;text-align:center;width:20px;-webkit-user-select:none;-moz-user-select:none;height:10px}.node{border:3px solid #1F497D;background:#0070C0;{borderRadius};color:white;height:60px!important}.top{border-top:2px solid #1F497D}.left{border-left:2px solid #1F497D}.collapsed{border-color:#76923C}.node.collapsed{background:#9BBB59}.selected{border-color:#E36C0A}.node.selected{background:#F79646}.hover,.clicked{border-color:#F79646}.node.hover{background:#FABF8F;cursor:pointer}.node.clicked{background:#F79646}.hidden{visibility:hidden;border-color:white}.dragged{border-color:#8064A2}.node.dragged{background:#B2A1C7;cursor:pointer}";
         if (/firefox/i.test(navigator.userAgent)) {
             //To overcome firefox bug
-            cssText += ".vg-orgchart{border-collapse:collapse}";
+            cssText += ".oj-orgchart{border-collapse:collapse}";
             cssText = cssText.replace("{borderRadius}", "");
         } else {
             cssText = cssText.replace("{borderRadius}", "border-radius:5px");

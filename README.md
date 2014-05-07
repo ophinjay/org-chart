@@ -11,16 +11,16 @@ Orgchart.js is a JavaScript library for generating organization charts in HTML P
 ![](/examples/Chart.PNG)
 
 ## OrgChart object
-Create an object of type `vg.vizualization.OrgChart`. The constructor expects a JSON object as its input with the mandatory property `container` which should hold a reference to the DOM element under which the chart is to be generated.
+Create an object of type `oj.vizualization.OrgChart`. The constructor expects a JSON object as its input with the mandatory property `container` which should hold a reference to the DOM element under which the chart is to be generated.
 
-	var tree = new vg.visualization.OrgChart({
+	var tree = new oj.visualization.OrgChart({
     	"container": document.getElementById("treeContainer")
 	});
 
 ### Chart options
 The behavior of the chart can be configured during creation by providing an additional `options` parameter during object creation.
  
-    var tree = new vg.visualization.OrgChart({
+    var tree = new oj.visualization.OrgChart({
     	"container": document.getElementById("treeContainer"),
     	"options": {
     	    "highlightSubtree": true,
